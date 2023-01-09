@@ -12,7 +12,6 @@ import { CustomersComponent } from 'src/app/admin/components/customers/customers
     CommonModule,
     ProductsModule,
     OrdersModule,
-    CustomersComponent
   ]
 })
 export class ComponentsModule { }
