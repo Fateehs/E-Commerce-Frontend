@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BrowserModule } from '@angular/platform-browser';
 import { AdminModule } from './admin/admin.module';
 
@@ -11,6 +12,7 @@ import { UiModule } from './ui/ui.module';
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     AdminModule, 
