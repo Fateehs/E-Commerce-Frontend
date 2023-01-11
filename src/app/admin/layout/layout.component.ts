@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
-
 
 @Component({
   selector: 'app-layout',
