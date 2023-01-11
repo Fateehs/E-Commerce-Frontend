@@ -22,13 +22,13 @@ export class AlertifyService {
 }
 
 export class AlertifyOptions {
-  messageType: MessageType = MessageType.Message;
+  messageType: AlertifyMessageType = AlertifyMessageType.Message;
   position: Position = Position.BottomRight;
   delay: number = 3;
   dismissOthers: boolean = false;
 }
 
-export enum MessageType {
+export enum AlertifyMessageType {
   Error = "error",
   Message = "message",
   Notify = "notify",
