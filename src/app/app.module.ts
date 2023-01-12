@@ -22,7 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ToastrModule.forRoot(),
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [{ provide: "baseUrl", useValue: "https://localhost:7235/api", multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
