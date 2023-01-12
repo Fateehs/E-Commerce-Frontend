@@ -10,3 +10,6 @@ export class AppComponent {
   title = 'ETradeApplication';
 }
 
+$.get("https://localhost:7235/api/products", data => {
+  console.log(data)
+})
