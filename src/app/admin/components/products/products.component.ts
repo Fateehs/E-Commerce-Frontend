@@ -14,17 +14,5 @@ export class ProductsComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.showSpinner(SpinnerType.BallAtom)
-
-    this.httpClientService.get({
-      controller: "products"
-    }).subscribe(data => console.log(data));
-
-    this.httpClientService.post({
-      controller: "products"
-    }, {
-      name: "Kalem",
-      stock: 100,
-      price: 15
-    }).subscribe();
   }
 }
