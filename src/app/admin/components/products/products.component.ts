@@ -10,9 +10,8 @@ import { HttpClientService } from 'src/app/services/common/http-client.service';
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
 
-  constructor(spinner: NgxSpinnerService, private httpClientService: Partial<HttpClientService>) { super(spinner) }
+  constructor(spinner: NgxSpinnerService) { super(spinner) }
 
   ngOnInit(): void {
-    this.showSpinner(SpinnerType.BallAtom)
   }
 }
