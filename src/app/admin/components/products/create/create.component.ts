@@ -32,6 +32,24 @@ export class CreateComponent extends BaseComponent implements OnInit {
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
 
+    if (!name.value) {
+      this.alertify.message("Please enter the product name!", {
+        dismissOthers: true,
+        messageType: AlertifyMessageType.Warning,
+        position: Position.TopRight
+      });
+      return;
+    }
+
+    if (parseInt(stock.value) < 0) {
+      this.alertify.message("Please enter the stock amount!", {
+        dismissOthers: true,
+        messageType: AlertifyMessageType.Warning,
+        position: Position.TopRight
+      });
+      return;
+    }
+
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallAtom);
       this.alertify.message("The product has been successfully added.", {
@@ -39,6 +57,12 @@ export class CreateComponent extends BaseComponent implements OnInit {
         messageType: AlertifyMessageType.Success,
         position: Position.TopRight
       });
+    }, errorMessage => {
+      this.alertify.message(errorMessage, {
+        dismissOthers: true,
+        messageType: AlertifyMessageType.Error,
+        position: Position.TopRight
+      })
     })
   }
 }
