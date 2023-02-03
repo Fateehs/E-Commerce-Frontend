@@ -8,37 +8,60 @@ import { HttpClientService } from '../http-client.service';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private httpClientService: HttpClientService) { }
+  constructor(private httpClientService: HttpClientService) {}
 
-  create(product: Create_Product, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
+  create(
+    product: Create_Product,
+    successCallBack?: any,
+    errorCallBack?: (errorMessage: string) => void
+  ) {
     this.httpClientService
       .post(
         {
-          fullEndPoint: "https://localhost:7235/api/products"
+          fullEndPoint: 'https://localhost:7235/api/products',
         },
         product
       )
-      .subscribe((result) => {
-        successCallBack();
-      }, (errorResponse: HttpErrorResponse) => {
-        const _error: Array<{ key: string, value: Array<String> }> = errorResponse.error;
-        let message = "";
-        _error.forEach((v, index) => {
-          v.value.forEach((_v, _index) => {
-            message += `${_v}<br>`;
+      .subscribe(
+        (result) => {
+          successCallBack();
+        },
+        (errorResponse: HttpErrorResponse) => {
+          const _error: Array<{ key: string; value: Array<String> }> =
+            errorResponse.error;
+          let message = '';
+          _error.forEach((v, index) => {
+            v.value.forEach((_v, _index) => {
+              message += `${_v}<br>`;
+            });
           });
-        });
-        errorCallBack(message);
-      });
+          errorCallBack(message);
+        }
+      );
   }
 
-  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (erroMessage: string) => void): Promise<List_Product[]> {
-    const promiseData: Promise<List_Product[]> = this.httpClientService.get<List_Product[]>({
-      fullEndPoint: "https://localhost:7235/api/products"
-    }).toPromise();
+  async read(
+    page: number = 0,
+    size: number = 5,
+    successCallBack?: () => void,
+    errorCallBack?: (erroMessage: string) => void
+  ): Promise<{ totalCount: number; products: List_Product[] }> {
+    const promiseData: Promise<{
+      totalCount: number;
+      products: List_Product[];
+    }> = this.httpClientService
+      .get<{ totalCount: number; products: List_Product[] }>({
+        // fullEndPoint: 'https://localhost:7235/api/products',
+        controller: 'products',
+        queryString: `page=${page}&size=${size}`,
+      })
+      .toPromise();
 
-    promiseData.then(d => successCallBack())
-      .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
+    promiseData
+      .then((d) => successCallBack())
+      .catch((errorResponse: HttpErrorResponse) =>
+        errorCallBack(errorResponse.message)
+      );
 
     return await promiseData;
   }
