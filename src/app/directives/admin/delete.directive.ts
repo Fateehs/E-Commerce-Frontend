@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Directive,
   ElementRef,
@@ -14,6 +15,11 @@ import {
   DeleteDialogComponent,
   DeleteState,
 } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
+import {
+  AlertifyMessageType,
+  AlertifyService,
+  Position,
+} from 'src/app/services/admin/alertify.service';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
@@ -29,7 +35,8 @@ export class DeleteDirective {
     private productService: ProductService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
-    private httpClientService: HttpClientService
+    private httpClientService: HttpClientService,
+    private alertifyService: AlertifyService
   ) {
     const img = _renderer.createElement('img');
     img.setAttribute('src', '../../../../../assets/delete.png');
@@ -55,19 +62,40 @@ export class DeleteDirective {
           },
           this.id
         )
-        .subscribe((data) => {
-          $(td.parentElement).animate(
-            {
-              opacity: 0,
-              left: '+=50',
-              height: 'toogle',
-            },
-            700,
-            () => {
-              this.callback.emit();
-            }
-          );
-        });
+        .subscribe(
+          (data) => {
+            $(td.parentElement).animate(
+              {
+                opacity: 0,
+                left: '+=50',
+                height: 'toogle',
+              },
+              700,
+              () => {
+                this.callback.emit();
+                this.alertifyService.message(
+                  'The product deleted succesfully!',
+                  {
+                    dismissOthers: true,
+                    messageType: AlertifyMessageType.Success,
+                    position: Position.TopRight,
+                  }
+                );
+              }
+            );
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.spinner.hide(SpinnerType.BallAtom);
+            this.alertifyService.message(
+              'An error occurred while deleting the product',
+              {
+                dismissOthers: true,
+                messageType: AlertifyMessageType.Error,
+                position: Position.TopRight,
+              }
+            );
+          }
+        );
     });
   }
 
