@@ -10,7 +10,7 @@ import { List_Product } from 'src/app/contracts/list_product';
 import {
   AlertifyMessageType,
   AlertifyService,
-  Position,
+  AlertifyPosition,
 } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
@@ -53,7 +53,7 @@ export class ListComponent extends BaseComponent implements OnInit {
           this.alertifyService.message(errorMessage, {
             dismissOthers: true,
             messageType: AlertifyMessageType.Error,
-            position: Position.TopRight,
+            position: AlertifyPosition.TopRight,
           })
       );
     this.dataSource = new MatTableDataSource<List_Product>(

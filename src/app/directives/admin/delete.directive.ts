@@ -18,7 +18,7 @@ import {
 import {
   AlertifyMessageType,
   AlertifyService,
-  Position,
+  AlertifyPosition,
 } from 'src/app/services/admin/alertify.service';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
@@ -78,7 +78,7 @@ export class DeleteDirective {
                   {
                     dismissOthers: true,
                     messageType: AlertifyMessageType.Success,
-                    position: Position.TopRight,
+                    position: AlertifyPosition.TopRight,
                   }
                 );
               }
@@ -91,7 +91,7 @@ export class DeleteDirective {
               {
                 dismissOthers: true,
                 messageType: AlertifyMessageType.Error,
-                position: Position.TopRight,
+                position: AlertifyPosition.TopRight,
               }
             );
           }
