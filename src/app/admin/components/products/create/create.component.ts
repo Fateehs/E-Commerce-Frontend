@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/create_product';
-import { AlertifyMessageType, AlertifyService, Position } from 'src/app/services/admin/alertify.service';
+import { AlertifyMessageType, AlertifyPosition, AlertifyService, } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       this.alertify.message("Please enter the product name!", {
         dismissOthers: true,
         messageType: AlertifyMessageType.Warning,
-        position: Position.TopRight
+        position: AlertifyPosition.TopRight
       });
       return;
     }
@@ -45,7 +45,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       this.alertify.message("Please enter the stock amount!", {
         dismissOthers: true,
         messageType: AlertifyMessageType.Warning,
-        position: Position.TopRight
+        position: AlertifyPosition.TopRight
       });
       return;
     }
@@ -55,13 +55,13 @@ export class CreateComponent extends BaseComponent implements OnInit {
       this.alertify.message("The product has been successfully added.", {
         dismissOthers: true,
         messageType: AlertifyMessageType.Success,
-        position: Position.TopRight
+        position: AlertifyPosition.TopRight
       });
     }, errorMessage => {
       this.alertify.message(errorMessage, {
         dismissOthers: true,
         messageType: AlertifyMessageType.Error,
-        position: Position.TopRight
+        position: AlertifyPosition.TopRight
       })
     })
   }
