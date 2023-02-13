@@ -20,6 +20,7 @@ import {
   AlertifyService,
   AlertifyPosition,
 } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
@@ -36,7 +37,8 @@ export class DeleteDirective {
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
     private httpClientService: HttpClientService,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private dialogService: DialogService
   ) {
     const img = _renderer.createElement('img');
     img.setAttribute('src', '../../../../../assets/delete.png');
@@ -52,50 +54,54 @@ export class DeleteDirective {
 
   @HostListener('click')
   async onClick() {
-    this.openDialog(async () => {
-      this.spinner.show(SpinnerType.BallAtom);
-      const td: HTMLTableCellElement = this.element.nativeElement;
-      this.httpClientService
-        .delete(
-          {
-            controller: this.controller,
-          },
-          this.id
-        )
-        .subscribe(
-          (data) => {
-            $(td.parentElement).animate(
-              {
-                opacity: 0,
-                left: '+=50',
-                height: 'toogle',
-              },
-              700,
-              () => {
-                this.callback.emit();
-                this.alertifyService.message(
-                  'The product deleted succesfully!',
-                  {
-                    dismissOthers: true,
-                    messageType: AlertifyMessageType.Success,
-                    position: AlertifyPosition.TopRight,
-                  }
-                );
-              }
-            );
-          },
-          (errorResponse: HttpErrorResponse) => {
-            this.spinner.hide(SpinnerType.BallAtom);
-            this.alertifyService.message(
-              'An error occurred while deleting the product',
-              {
-                dismissOthers: true,
-                messageType: AlertifyMessageType.Error,
-                position: AlertifyPosition.TopRight,
-              }
-            );
-          }
-        );
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.BallAtom);
+        const td: HTMLTableCellElement = this.element.nativeElement;
+        this.httpClientService
+          .delete(
+            {
+              controller: this.controller,
+            },
+            this.id
+          )
+          .subscribe(
+            (data) => {
+              $(td.parentElement).animate(
+                {
+                  opacity: 0,
+                  left: '+=50',
+                  height: 'toogle',
+                },
+                700,
+                () => {
+                  this.callback.emit();
+                  this.alertifyService.message(
+                    'The product deleted succesfully!',
+                    {
+                      dismissOthers: true,
+                      messageType: AlertifyMessageType.Success,
+                      position: AlertifyPosition.TopRight,
+                    }
+                  );
+                }
+              );
+            },
+            (errorResponse: HttpErrorResponse) => {
+              this.spinner.hide(SpinnerType.BallAtom);
+              this.alertifyService.message(
+                'An error occurred while deleting the product',
+                {
+                  dismissOthers: true,
+                  messageType: AlertifyMessageType.Error,
+                  position: AlertifyPosition.TopRight,
+                }
+              );
+            }
+          );
+      },
     });
   }
 
