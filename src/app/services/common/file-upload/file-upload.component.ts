@@ -16,6 +16,7 @@ import {
   ToastrMessageType,
   ToastrPosition,
 } from '../../ui/custom-toastr.service';
+import { DialogParameters, DialogService } from '../dialog.service';
 import { HttpClientService } from '../http-client.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class FileUploadComponent {
     private httpClientService: HttpClientService,
     private aletifyService: AlertifyService,
     private toastrService: CustomToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogService: DialogService
   ) {}
 
   public files: NgxFileDropEntry[];
@@ -43,63 +45,54 @@ export class FileUploadComponent {
         fileData.append(_file.name, _file, file.relativePath);
       });
     }
-    this.openDialog(() => {
-      this.httpClientService
-        .post(
-          {
-            controller: this.options.controller,
-            action: this.options.action,
-            queryString: this.options.queryString,
-            headers: new HttpHeaders({ responseType: 'blob' }),
-          },
-          fileData
-        )
-        .subscribe(
-          (data) => {
-            const message: string = 'Files uploaded successfully';
+    this.dialogService.openDialog({
+      componentType: FileUploadDialogComponent,
+      data: FileUploadDialogState,
+      afterClosed: () => {
+        this.httpClientService
+          .post(
+            {
+              controller: this.options.controller,
+              action: this.options.action,
+              queryString: this.options.queryString,
+              headers: new HttpHeaders({ responseType: 'blob' }),
+            },
+            fileData
+          )
+          .subscribe(
+            (data) => {
+              const message: string = 'Files uploaded successfully';
 
-            if (this.options.isAdminPage) {
-              this.aletifyService.message(message, {
-                dismissOthers: true,
-                messageType: AlertifyMessageType.Success,
-                position: AlertifyPosition.TopRight,
-              });
-            } else {
-              this.toastrService.message(message, 'Success', {
-                messageType: ToastrMessageType.Success,
-                position: ToastrPosition.TopRight,
-              });
+              if (this.options.isAdminPage) {
+                this.aletifyService.message(message, {
+                  dismissOthers: true,
+                  messageType: AlertifyMessageType.Success,
+                  position: AlertifyPosition.TopRight,
+                });
+              } else {
+                this.toastrService.message(message, 'Success', {
+                  messageType: ToastrMessageType.Success,
+                  position: ToastrPosition.TopRight,
+                });
+              }
+            },
+            (errorResponse: HttpErrorResponse) => {
+              const message: string = 'There was a problem uploading the files';
+              if (this.options.isAdminPage) {
+                this.aletifyService.message(message, {
+                  messageType: AlertifyMessageType.Error,
+                  position: AlertifyPosition.TopRight,
+                  dismissOthers: true,
+                });
+              } else {
+                this.toastrService.message(message, 'Error', {
+                  messageType: ToastrMessageType.Error,
+                  position: ToastrPosition.TopRight,
+                });
+              }
             }
-          },
-          (errorResponse: HttpErrorResponse) => {
-            const message: string = 'There was a problem uploading the files';
-            if (this.options.isAdminPage) {
-              this.aletifyService.message(message, {
-                messageType: AlertifyMessageType.Error,
-                position: AlertifyPosition.TopRight,
-                dismissOthers: true,
-              });
-            } else {
-              this.toastrService.message(message, 'Error', {
-                messageType: ToastrMessageType.Error,
-                position: ToastrPosition.TopRight,
-              });
-            }
-          }
-        );
-    });
-  }
-
-  openDialog(afterClosed: any): void {
-    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
-      width: '250px',
-      data: FileUploadDialogState.Yes,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result == FileUploadDialogState.Yes) {
-        afterClosed();
-      }
+          );
+      },
     });
   }
 }
