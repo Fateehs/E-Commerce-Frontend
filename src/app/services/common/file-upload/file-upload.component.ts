@@ -2,6 +2,8 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxFileDropEntry } from 'ngx-file-drop';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from 'src/app/base/base.component';
 import {
   FileUploadDialogComponent,
   FileUploadDialogState,
@@ -30,8 +32,9 @@ export class FileUploadComponent {
     private aletifyService: AlertifyService,
     private toastrService: CustomToastrService,
     private dialog: MatDialog,
-    private dialogService: DialogService
-  ) {}
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   public files: NgxFileDropEntry[];
 
@@ -49,6 +52,7 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState,
       afterClosed: () => {
+        this.spinner.show(SpinnerType.BallAtom)
         this.httpClientService
           .post(
             {
@@ -63,6 +67,7 @@ export class FileUploadComponent {
             (data) => {
               const message: string = 'Files uploaded successfully';
 
+              this.spinner.hide(SpinnerType.BallAtom)
               if (this.options.isAdminPage) {
                 this.aletifyService.message(message, {
                   dismissOthers: true,
@@ -78,6 +83,8 @@ export class FileUploadComponent {
             },
             (errorResponse: HttpErrorResponse) => {
               const message: string = 'There was a problem uploading the files';
+
+              this.spinner.hide(SpinnerType.BallAtom)
               if (this.options.isAdminPage) {
                 this.aletifyService.message(message, {
                   messageType: AlertifyMessageType.Error,
