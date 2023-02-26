@@ -19,7 +19,7 @@ export class ProductService {
     this.httpClientService
       .post(
         {
-          fullEndPoint: 'https://localhost:7235/api/products',
+          controller : "products"
         },
         product
       )
