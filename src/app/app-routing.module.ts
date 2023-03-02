@@ -19,12 +19,13 @@ const routes: Routes = [
       {
         path: "orders", loadChildren: () => import("./admin/components/orders/orders.module").then
           (module => module.OrdersModule)
-      },
+      }
     ]
   },
   { path: "", component: HomeComponent },
   { path: "basket", loadChildren: () => import("./ui/components/baskets/baskets.module").then(module => module.BasketsModule) },
   { path: "products", loadChildren: () => import("./ui/components/products/products.module").then(module => module.ProductsModule) },
+  { path: "register", loadChildren: () => import("./ui/components/register/register.module").then(module => module.RegisterModule) },
 ];
 
 @NgModule({
