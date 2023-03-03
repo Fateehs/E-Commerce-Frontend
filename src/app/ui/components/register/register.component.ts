@@ -13,15 +13,24 @@ export class RegisterComponent implements OnInit {
   registerFormGroup: FormGroup;
   ngOnInit(): void {
     this.registerFormGroup = this.formBuilder.group({
-      name: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-      userName: ["", [Validators.required]],
+      nameSurname: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+      userName: ["", [Validators.required, Validators.maxLength(50)]],
       email: ["", [Validators.required, Validators.maxLength(50), Validators.email]],
       password: ["", [Validators.required]],
       verifyPassword: ["", [Validators.required]]
     })
   }
 
-  onSubmit(data: any) {
+  get component()  {
+    return this.registerFormGroup.controls;
+  }
 
+  submitted: boolean = false;
+  onSubmit(data: any) {
+    this.submitted = true;
+var c =    this.component;
+debugger;
+    if (this.registerFormGroup.invalid)
+      return;
   }
 }
