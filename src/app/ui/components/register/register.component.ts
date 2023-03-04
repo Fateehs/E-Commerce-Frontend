@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { User } from 'src/app/entities/user';
 
 @Component({
   selector: 'app-register',
@@ -14,22 +15,28 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerFormGroup = this.formBuilder.group({
       nameSurname: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-      userName: ["", [Validators.required, Validators.maxLength(50)]],
+      username: ["", [Validators.required, Validators.maxLength(50)]],
       email: ["", [Validators.required, Validators.maxLength(50), Validators.email]],
       password: ["", [Validators.required]],
-      verifyPassword: ["", [Validators.required]]
+      confirmPassword: ["", [Validators.required]]
+    }, {
+      validators: (group: AbstractControl): ValidationErrors | null => {
+        let password = group.get('password').value;
+        let confirmPassword = group.get('confirmPassword').value
+        return password === confirmPassword ? null : {notSame: true}
+      }
     })
   }
 
-  get component()  {
+  get component() {
     return this.registerFormGroup.controls;
   }
 
   submitted: boolean = false;
-  onSubmit(data: any) {
+  onSubmit(user: User) {
     this.submitted = true;
-var c =    this.component;
-debugger;
+    // var c = this.component;
+    // debugger;
     if (this.registerFormGroup.invalid)
       return;
   }
