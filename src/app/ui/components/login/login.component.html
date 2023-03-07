@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input #txtUsernameOrEmail type="text" formControlName="username" class="form-control" id="username"
+                placeholder="Username or Email">
+            <small class="form-text text-muted invalid-feedback">Name and surname cannot be
+                blank!</small>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input #txtPassword type="password" formControlName="password" class="form-control" id="password"
+                    placeholder="Password">
+                <br>
+                <button type="submit" class="btn btn-outline-success"
+                    (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
+            </div>
+        </div>
