@@ -33,7 +33,7 @@ export class UserService {
     if (tokenResponse) {
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
 
-      this.toastrService.message("User login successful", "Login Successful", {
+      this.toastrService.message("Successfully logged in", "Login Successful", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       })
