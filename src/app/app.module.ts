@@ -8,11 +8,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './ui/components/login/login.component';
 import { UiModule } from './ui/ui.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,
