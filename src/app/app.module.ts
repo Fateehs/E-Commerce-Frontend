@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpErroHandlerInterceptorService } from './services/common/http-erro-handler-interceptor.service';
 import { LoginComponent } from './ui/components/login/login.component';
 import { UiModule } from './ui/ui.module';
 
@@ -32,7 +33,11 @@ import { UiModule } from './ui/ui.module';
       }
     })
   ],
-  providers: [{ provide: "baseUrl", useValue: "https://localhost:7235/api", multi: true }],
+  providers: [{
+    provide: "baseUrl", useValue:
+      "https://localhost:7235/api", multi: true
+  },
+  { provide: HTTP_INTERCEPTORS, useClass: HttpErroHandlerInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
