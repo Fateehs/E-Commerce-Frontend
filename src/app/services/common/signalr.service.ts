@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HubConnection } from '@microsoft/signalr';
-import { HubConnectionState } from '@microsoft/signalr/dist/esm/HubConnection';
-import { HubConnectionBuilder } from '@microsoft/signalr/dist/esm/HubConnectionBuilder';
+import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +7,8 @@ import { HubConnectionBuilder } from '@microsoft/signalr/dist/esm/HubConnectionB
 export class SignalRService {
 
   private _connection: HubConnection;
-
   get connection(): HubConnection {
-    return this._connection
+    return this._connection;
   }
 
   start(hubUrl: string) {
@@ -30,7 +27,7 @@ export class SignalRService {
     }
 
     this._connection.onreconnected(connectionId => console.log("Reconnected"));
-    this._connection.onreconnecting(error => console.log("Reconnecting..."));
+    this._connection.onreconnecting(error => console.log("Reconnecting"));
     this._connection.onclose(error => console.log("Close reconnection"));
   }
 
