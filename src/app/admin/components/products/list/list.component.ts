@@ -16,7 +16,7 @@ import {
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
-declare var $ : any
+declare var $: any
 
 @Component({
   selector: 'app-list',
@@ -48,7 +48,7 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   async getProducts() {
     this.showSpinner(SpinnerType.BallAtom);
-    const allProducts: { totalCount: number; products: List_Product[] } =
+    const allProducts: { totalProductCount: number; products: List_Product[] } =
       await this.productService.read(
         this.paginator ? this.paginator.pageIndex : 0,
         this.paginator ? this.paginator.pageSize : 5,
@@ -63,14 +63,14 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.dataSource = new MatTableDataSource<List_Product>(
       allProducts.products
     );
-    this.paginator.length = allProducts.totalCount;
+    this.paginator.length = allProducts.totalProductCount;
   }
 
-  addProductImages(id:string){
+  addProductImages(id: string) {
     this.dialogService.openDialog({
       componentType: SelectProductImageDialogComponent,
-      data:id,
-      options:{
+      data: id,
+      options: {
         width: "1400px"
       }
     })
