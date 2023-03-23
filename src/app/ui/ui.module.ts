@@ -8,7 +8,9 @@ import { ComponentsModule } from './components/components.module';
   declarations: [],
   imports: [
     CommonModule,
-
+  ],
+  exports: [
+    ComponentsModule
   ]
 })
 export class UiModule { }
