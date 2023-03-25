@@ -11,11 +11,13 @@ import { AppComponent } from './app.component';
 import { HttpErroHandlerInterceptorService } from './services/common/http-erro-handler-interceptor.service';
 import { LoginComponent } from './ui/components/login/login.component';
 import { UiModule } from './ui/ui.module';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DynamicLoadComponentDirective
   ],
   imports: [
     BrowserAnimationsModule,
