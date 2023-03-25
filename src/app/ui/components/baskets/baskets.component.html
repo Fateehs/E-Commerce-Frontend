@@ -1,40 +1,36 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Shopping Cart</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let basketItem of basketItems;let i = index">
-                            <th scope="row">{{i + 1}}</th>
-                            <td>{{basketItem.name}}</td>
-                            <td>{{basketItem.price}}</td>
-                            <td><input type="number" [value]="basketItem.quantity" style="width: 60px;"
-                                    data-id="{{basketItem.basketItemId}}" (change)="changeQuantity($event)" />
-                            </td>
-                            <td>
-                                <img src="../../assets/delete.png" style="width: 24px; height: 24px;">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer" style="margin: auto;">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Go to checkout</button>
-            </div>
-        </div>
+<div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Shopping Cart</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let basketItem of basketItems;let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{basketItem.name}}</td>
+                    <td>{{basketItem.price}}</td>
+                    <td><input type="number" [value]="basketItem.quantity" style="width: 60px;"
+                            data-id="{{basketItem.basketItemId}}" (change)="changeQuantity($event)" />
+                    </td>
+                    <td>
+                        <img src="../../assets/delete.png" style="width: 24px; height: 24px;">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer" style="margin: auto;">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Go to checkout</button>
     </div>
 </div>
