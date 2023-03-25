@@ -38,7 +38,8 @@
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <img src="../../assets/basket.png" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <img src="../../assets/basket.png" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            (click)="loadComponent()">
                     </div>
 
                 </div>
@@ -57,4 +58,10 @@
 <ngx-spinner size="default" name="s2" type="ball-scale-multiple"></ngx-spinner>
 <ngx-spinner size="default" name="s3" type="ball-spin-clockwise-fade-rotatings"></ngx-spinner>
 
-<app-baskets></app-baskets>
+<!-- <app-baskets></app-baskets> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <ng-template appDynamicLoadComponent></ng-template>
+    </div>
+</div>
