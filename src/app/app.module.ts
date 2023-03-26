@@ -35,11 +35,11 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
       }
     })
   ],
-  providers: [{
-    provide: "baseUrl", useValue:
-      "https://localhost:7235/api", multi: true
-  },
-  { provide: HTTP_INTERCEPTORS, useClass: HttpErroHandlerInterceptorService, multi: true }],
+  providers: [
+    { provide: "baseUrl", useValue: "https://localhost:7235/api", multi: true },
+    { provide: "baseSignalRUrl", useValue: "https://localhost:7235/", multi: true },
+
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErroHandlerInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
