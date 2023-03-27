@@ -7,12 +7,16 @@ import { SelectProductImageDialogComponent } from '../select-product-image-dialo
 import { FileUploadModule } from 'src/app/services/common/file-upload/file-upload.module';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { BasketItemRemoveDialogComponent } from '../basket-item-remove-dialog/basket-item-remove-dialog.component';
+import { CompleteShoppingDialogComponent } from '../complete-shopping-dialog/complete-shopping-dialog.component';
 
 
 @NgModule({
   declarations: [
     DeleteDialogComponent,
-    SelectProductImageDialogComponent
+    SelectProductImageDialogComponent,
+    BasketItemRemoveDialogComponent,
+    CompleteShoppingDialogComponent
   ],
   imports: [
     CommonModule,
