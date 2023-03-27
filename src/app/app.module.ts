@@ -17,7 +17,7 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
   declarations: [
     AppComponent,
     LoginComponent,
-    DynamicLoadComponentDirective
+    DynamicLoadComponentDirective,
   ],
   imports: [
     BrowserAnimationsModule,
