@@ -38,10 +38,9 @@
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <img src="../../assets/basket.png" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        <img src="../../assets/basket.png" data-bs-toggle="modal" data-bs-target="#basketModal"
                             (click)="loadComponent()">
                     </div>
-
                 </div>
             </div>
         </nav>
@@ -60,7 +59,7 @@
 
 <!-- <app-baskets></app-baskets> -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="basketModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <ng-template appDynamicLoadComponent></ng-template>
     </div>
