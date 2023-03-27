@@ -8,15 +8,9 @@ export class SignalRService {
 
   constructor(@Inject("baseSignalRUrl") private baseSignalRUrl: string) { }
 
-  private _connection: HubConnection;
-  get connection(): HubConnection {
-  return this._connection;
-}
+  start(hubUrl: string) {
+    hubUrl = this.baseSignalRUrl + hubUrl;
 
-start(hubUrl: string) {
-  hubUrl += this.baseSignalRUrl + hubUrl;
-
-  if (!this.connection || this._connection?.state == HubConnectionState.Disconnected) {
     const builder: HubConnectionBuilder = new HubConnectionBuilder();
 
     const hubConnection: HubConnection = builder.withUrl(hubUrl)
@@ -27,21 +21,19 @@ start(hubUrl: string) {
       .then(() => console.log("Connected"))
       .catch(error => setTimeout(() => this.start(hubUrl), 2000));
 
-    this._connection = hubConnection;
+    hubConnection.onreconnected(connectionId => console.log("Reconnected"));
+    hubConnection.onreconnecting(error => console.log("Reconnecting"));
+    hubConnection.onclose(error => console.log("Close reconnection"));
+    return hubConnection;
   }
 
-  this._connection.onreconnected(connectionId => console.log("Reconnected"));
-  this._connection.onreconnecting(error => console.log("Reconnecting"));
-  this._connection.onclose(error => console.log("Close reconnection"));
-}
+  invoke(hubUrl: string, procedureName: string, message: any, successCallBack?: (value) => void, errorCallBack?: (error) => void) {
+    this.start(hubUrl).invoke(procedureName, message)
+      .then(successCallBack)
+      .catch(errorCallBack);
+  }
 
-invoke(procedureName: string, message: any, successCallBack ?: (value) => void, errorCallBack ?: (error) => void) {
-  this.connection.invoke(procedureName, message)
-    .then(successCallBack)
-    .catch(errorCallBack);
-}
-
-on(procedureName: string, callBack: (...message: any) => void) {
-  this.connection.on(procedureName, callBack);
-}
+  on(hubUrl: string, procedureName: string, callBack: (...message: any) => void) {
+    this.start(hubUrl).on(procedureName, callBack);
+  }
 }
