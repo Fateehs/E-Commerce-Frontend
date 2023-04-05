@@ -9,8 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
-import { DialogModule } from 'src/app/dialogs/dialog/dialog.module';
-import { FileUploadModule } from 'src/app/services/common/file-upload/file-upload.module';
+import { DialogModule } from 'src/app/dialogs/dialog.module';
+import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
 
 
 
@@ -31,7 +31,7 @@ import { FileUploadModule } from 'src/app/services/common/file-upload/file-uploa
     MatTableModule,
     MatPaginatorModule,
     DialogModule,
-    FileUploadModule
+    DeleteDirectiveModule
   ]
 })
 export class OrdersModule { }
