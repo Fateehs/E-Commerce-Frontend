@@ -28,12 +28,14 @@
 
         <ng-container matColumnDef="uploadImage">
             <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let element">  <img style="cursor: pointer;" (click)="addProductImages(element.id)" src="../../../../../assets/uploadImage.png"> </td>
+            <td mat-cell *matCellDef="let element"> <img style="cursor: pointer;" (click)="addProductImages(element.id)"
+                    src="../../../../../assets/uploadImage.png"> </td>
         </ng-container>
 
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let element"> <img style="cursor: pointer;" src="../../../../../assets/edit.png"> </td>
+            <td mat-cell *matCellDef="let element"> <img style="cursor: pointer;" src="../../../../../assets/edit.png">
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">

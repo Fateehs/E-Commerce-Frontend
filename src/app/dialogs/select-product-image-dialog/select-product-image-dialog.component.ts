@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit, Output } from '@angular/core';
-import { MatCard } from '@angular/material/card';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from 'src/app/base/base.component';
 import { List_Product_Image } from 'src/app/contracts/list_product_image';
 import { DialogService } from 'src/app/services/common/dialog.service';
