@@ -12,7 +12,9 @@
                 <input #txtPassword type="password" formControlName="password" class="form-control" id="password"
                     placeholder="Password">
                 <br>
-                <button type="submit" class="btn btn-outline-success"
+                <button type="submit" class="btn btn-success"
                     (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
+                <a style="margin-left: 186px;" class="btn btn-secondary" routerLink="/password-reset">Forgot
+                    Password</a>
             </div>
         </div>
