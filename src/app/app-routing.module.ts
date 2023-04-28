@@ -20,6 +20,10 @@ const routes: Routes = [
       {
         path: "orders", loadChildren: () => import("./admin/components/orders/orders.module").then
           (module => module.OrdersModule), canActivate: [AuthGuard]
+      },
+      {
+        path: "authorize-menu", loadChildren: () => import("./admin/components/authorize-menu/authorize-menu.module").then
+          (module => module.AuthorizeMenuModule), canActivate: [AuthGuard]
       }
     ], canActivate: [AuthGuard]
   },
