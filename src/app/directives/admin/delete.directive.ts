@@ -78,8 +78,7 @@ export class DeleteDirective {
                 700,
                 () => {
                   this.callback.emit();
-                  this.alertifyService.message(
-                    'The product deleted succesfully!',
+                  this.alertifyService.message(`${this.controller == 'roles' ? 'Rol' : 'Product'} has deleted successfully.`,
                     {
                       dismissOthers: true,
                       messageType: AlertifyMessageType.Success,
