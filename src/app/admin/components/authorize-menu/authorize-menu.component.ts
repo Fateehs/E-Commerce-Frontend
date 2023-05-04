@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent } from '../../../base/base.component';
+import { AuthorizeMenuDialogComponent } from '../../../dialogs/authorize-menu-dialog/authorize-menu-dialog.component';
 import { DialogService } from '../../../services/common/dialog.service';
 import { ApplicationService } from 'src/app/services/common/models/applications.service';
-import { AuthorizeMenuDialogComponent } from 'src/app/dialogs/authorize-menu-dialog/authorize-menu-dialog.component';
+
 
 interface FoodNode {
   name: string;
@@ -15,7 +16,8 @@ interface FoodNode {
 interface ITreeMenu {
   name?: string,
   actions?: ITreeMenu[],
-  code?: string
+  code?: string,
+  menuName?: string
 }
 
 interface ExampleFlatNode {
@@ -43,7 +45,8 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
           actions: m.actions.map(a => {
             const _treeMenu: ITreeMenu = {
               name: a.definition,
-              code: a.code
+              code: a.code,
+              menuName: m.name
             }
             return _treeMenu;
           })
@@ -63,7 +66,8 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
         expandable: menu.actions?.length > 0,
         name: menu.name,
         level: level,
-        code: menu.code
+        code: menu.code,
+        menuName: menu.menuName
       };
     },
     menu => menu.level,
@@ -76,10 +80,10 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  assignRole(code: string, name: string) {
+  assignRole(code: string, name: string, menuName: string) {
     this.dialogService.openDialog({
       componentType: AuthorizeMenuDialogComponent,
-      data: { code: code, name: name },
+      data: { code: code, name: name, menuName: menuName },
       options: {
         width: "750px"
       },
