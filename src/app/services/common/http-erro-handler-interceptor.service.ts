@@ -39,7 +39,10 @@ export class HttpErroHandlerInterceptorService implements HttpInterceptor {
                 });
             }
           }).then(data => {
-
+            this.toastrService.message("You are not authorized to do this operation", "Unauthorized Person", {
+              messageType: ToastrMessageType.Warning,
+              position: ToastrPosition.BottomFullWidth
+            });
           });
           break;
 
